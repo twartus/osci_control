@@ -1,3 +1,4 @@
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Premake a Plot %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,7 +29,7 @@ end;
 delete(instrfindall);   %clearing
 %  clear all; clc; close all;
 %Initialize Arduino on serial
-arduino1 = serial('COM9','BaudRate',115200);  
+arduino1 = serial('COM5','BaudRate',115200);  
 %set(s, ' Terminator', 'LF'); % Default terminator is \n
 set(arduino1,'BaudRate', 115200);
 set(arduino1,'DataBits', 8);
@@ -36,12 +37,13 @@ set(arduino1,'StopBits', 1);
 fopen(arduino1);
 arduino1.ReadAsyncMode = 'continuous';
 
+%%
+if(mode_voltControl == 1);
 % Initialize Function Generator on gpib
-if((mode_initializeFG == 1) | (mode_voltControl == 1))
     functionGen1 = gpib('AGILENT', 7, 10);
     fopen(functionGen1);
 end;
-
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Set the Function generator %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

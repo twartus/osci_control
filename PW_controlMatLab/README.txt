@@ -1,6 +1,12 @@
-Version 0.01
-April 17, 2016
-10PM
+Version 0.02
+2016 May 9
+11PM
+
+2016_05_09
+	Moved stuff into folders
+	sectioned matlab files
+	New normalizing values
+	RUN THE m_main FILE
 
 prototype is split into many functions
 

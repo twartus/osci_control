@@ -2,23 +2,18 @@
 %Drivers have been added
 
 % variables
-%modes: Set to 1 to enable, Set to 0 to disable. 
-%These are simple variables used in if statements
-initMode = 0; %if initMode > 0, initialize frequency and amplitude
-plotMode = 1; %if plotMode > 0, plot graphs
-correctionMode = 0; %if correctionMode > 0, adjust voltage using acceleration error
-
-
+%%
 numberOfData = 50;  %how many points to plot
 data = zeros(1, numberOfData);  %accel data array
-sampFreq = 10;
+sampFreq = 80;
 t = (0:1/sampFreq:(numberOfData-1)/sampFreq);
 %accel normalization constants
-y0g = 508;
-y1g = 529;
+y0g = 0;
+y1g = 2720;
 %Target accel
 %Corrections to V are made until within yTarget+-yTriggerMin
 %Corrections rate is limited at yTarget +- yCorrectionMax
+%%
 yTarget = 3.00;
 yError = 0;
 yErrorMag = 0;
@@ -27,7 +22,8 @@ yCorrectionMax = 1.15; %Maximum errr correction, to avoid large correction from 
 yCorrection = 0;
 
 yToVoltConst = .02; %convert yCorrection to vCorrection
-
+corrPower = 1;  %Power of correction e.g. Linear(1), Square(2), Cube(3)
+%%
 fg1Freq = 80;
 fg1Volt = 0.100;
 fg1VCorrection = 0;
