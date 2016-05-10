@@ -67,6 +67,10 @@ void setup()
   AccelerometerRange(6);
   //Attaches Interrupt. See InterruptsAndPeaks
   Timer1_Setup();
+
+  //Sleep
+  SMCR |= SM2;  //Power down mode
+  SMCR |= SE; //Set sleep enable
 }
 
 
@@ -90,7 +94,6 @@ void serialEvent() {
       SMCR &= ~SE;  //clear sleep enable
       break;
     case 's': //s for sleep
-      SMCR |= SM2;  //Power down mode
       SMCR |= SE; //Set sleep enable
       break;
     default :
