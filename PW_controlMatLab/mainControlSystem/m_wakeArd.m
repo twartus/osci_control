@@ -9,6 +9,8 @@ set(arduino1,'StopBits', 1);
 fopen(arduino1);
 arduino1.ReadAsyncMode = 'continuous';
 
-fwrite(arduino1,'s'); %sleep it
+fwrite(arduino1,'w'); %wake it
 
 fclose(arduino1);
+
+this = 1

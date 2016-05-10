@@ -1,3 +1,4 @@
+#include <avr/sleep.h>
 //Accelerometer X value read as often as possible
 //The maximum (peak) is stored
 //At a set frequency (currently 80Hz) interrupts occur
@@ -44,12 +45,16 @@
 #define SCALE 0.0007324; // approximate scale factor for full range (+/-24g)
 // scale factor: +/-24g = 48G range. 2^16 bits. 48/65536 = 0.0007324
 
+#define SLEEPPIN 8 //for sleeping
+
 // global acceleration values
 double xAcc, yAcc, zAcc;  //Later will change, probably store in int's 
 int xVal;
 int yVal;
 int zVal;
 int xPeak;
+
+short accelAwake;
 
 char inChar;
 
@@ -68,41 +73,50 @@ void setup()
   //Attaches Interrupt. See InterruptsAndPeaks
   Timer1_Setup();
 
-  //Sleep
-  SMCR |= SM2;  //Power down mode
-  SMCR |= SE; //Set sleep enable
+  accelAwake = 0;
+  TIMSK1 = 0;
+  pinMode(SLEEPPIN, INPUT); 
 }
 
 
 void loop()
 {
-  //peak_update();
-//  printXOnly();
-//  testGetValSpeed();
-//xVal = read_XOnly_V3();
-//printXOnly();
-  peak_update();
-}
-
-void serialEvent() {
-  while (Serial.available()) {
-    inChar = (char)Serial.read();
-    }
-
-  switch (inChar) {
-    case 'w': //w for wake
-      SMCR &= ~SE;  //clear sleep enable
-      break;
-    case 's': //s for sleep
-      SMCR |= SE; //Set sleep enable
-      break;
-    default :
-      break;
+  accelAwake = digitalRead(SLEEPPIN);
+  TIMSK1 = accelAwake;
+  if(accelAwake){
+      //peak_update();
+    //  printXOnly();
+    //  testGetValSpeed();
+    //xVal = read_XOnly_V3();
+    //printXOnly();
+      peak_update();
+  } else {
+    delay(5000);
   }
-  
 }
 
-
-
-
+//void serialEvent() {
+//  while (Serial.available()) {
+//    inChar = (char)Serial.read();
+//    }
+//
+//  switch (inChar) {
+//    case 'w': //w for wake
+//      accelAwake = 1;
+//      TIMSK1 = 1;
+//      break;
+//    case 's': //s for sleep
+//      accelAwake = 0;
+//      TIMSK1 = 0;
+//      break;
+//    default :
+//    
+//      break;
+//  }
+//  
+//}
+//
+//
+//
+//
 
