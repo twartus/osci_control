@@ -36,6 +36,7 @@ set(arduino1,'DataBits', 8);
 set(arduino1,'StopBits', 1);
 fopen(arduino1);
 arduino1.ReadAsyncMode = 'continuous';
+fwrite(arduino1,'w'); %tell to wake up
 
 %%
 if(mode_voltControl == 1);

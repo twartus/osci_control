@@ -51,6 +51,8 @@ int yVal;
 int zVal;
 int xPeak;
 
+char inChar;
+
 
 
 void setup()
@@ -78,7 +80,24 @@ void loop()
   peak_update();
 }
 
+void serialEvent() {
+  while (Serial.available()) {
+    inChar = (char)Serial.read();
+    }
 
+  switch (inChar) {
+    case 'w': //w for wake
+      SMCR &= ~SE;  //clear sleep enable
+      break;
+    case 's': //s for sleep
+      SMCR |= SM2;  //Power down mode
+      SMCR |= SE; //Set sleep enable
+      break;
+    default :
+      break;
+  }
+  
+}
 
 
 

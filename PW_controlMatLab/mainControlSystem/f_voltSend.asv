@@ -3,3 +3,5 @@
 fprintf(functionGen1,sprintf('VOLT %d', fg1Volt)); %Send new voltage to FG1
 
 
+fprintf(functionGen1,'MEAS:VOLT:AC?');
+currentVoltage = fscanf(functionGen1);

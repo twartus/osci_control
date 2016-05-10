@@ -6,7 +6,7 @@ for n = 1:n_recorded;
     data(n) = fscanf(arduino1, '%f');  
     data(n) = abs((data(n)- y1g) / (y0g - y1g));
     if(mod(n,100) == 0);
-        disp(sprintf('Still recording! %d', n));
+       fprintf('Still recording! %d \n', n);
         %n
     end;
 end;
