@@ -1,5 +1,6 @@
 #define PEAKFREQUENCY 123
-#define T_80HZ_us 12500 
+#define T_80HZ_us 12500
+//#define T_80HZ_us 100000 
 #define T_ADJUST 0
 
 #define T_UNDERSAMP_us 12500
@@ -7,8 +8,8 @@
 
 void Timer1_Setup(){
   Timer1.initialize();
-  long T_interrupt = T_80HZ_us + T_ADJUST;
-  Timer1.attachInterrupt(peak_ISR, T_interrupt);
+//  long T_interrupt = T_80HZ_us + T_ADJUST;
+  Timer1.attachInterrupt(peak_ISR, T_80HZ_us);
 }
 
 //This is for the peak retrieval
@@ -20,13 +21,17 @@ void peak_ISR(){
 }
 
 void peak_update(){    //it is a single line, but if it becomes more complex a function is helpful
-  xPeak = max(xPeak,read_XOnly_V3()); //really nothing more to it for now
+  xTemp = read_XOnly_V3();
+  if (xTemp < 16000){
+   xPeak = max(xPeak,read_XOnly_V3()); //really nothing more to it for now
+  };
                                       //peak is the highest value
   
 }
 
 void peak_reset(){   
   xPeak = -32752;        //not much to this either
+//  xPeak = 0;
 }
 
 

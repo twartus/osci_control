@@ -3,7 +3,7 @@
 
 % variables
 %%
-numberOfData = 50;  %how many points to plot
+numberOfData = 500;  %how many points to plot
 data = zeros(1, numberOfData);  %accel data array
 sampFreq = 80;
 t = (0:1/sampFreq:(numberOfData-1)/sampFreq);

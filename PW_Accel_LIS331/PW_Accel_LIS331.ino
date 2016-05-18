@@ -54,6 +54,8 @@ int yVal;
 int zVal;
 int xPeak;
 
+int xTemp;
+
 short accelAwake;
 
 char inChar;
