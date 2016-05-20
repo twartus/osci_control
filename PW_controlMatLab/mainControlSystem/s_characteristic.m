@@ -9,15 +9,12 @@ mode_record = 0;
 f_init1;
 f_init2;
 %%
-nStepData = 450;
 sampFreq = 80;
-secondsExpect = nStepData/sampFreq
-stepLow = 0.100;
-stepHigh = 0.600;
-stepEveryN = 100;   %step every this
-nowVoltage = stepLow;
+charLow = 0.200;
+charHigh = 0.800;
 data_stepVolt = zeros(1, nStepData);   %initialize data
 data_stepAccel = zeros(1, nStepData);
+
 
 fprintf(functionGen1,sprintf('VOLT %d', nowVoltage));   %initialize
 fprintf(functionGen1,sprintf('FREQ %d', 80));
@@ -53,19 +50,11 @@ stepTimes = (0:1/sampFreq:(nStepData-1)/sampFreq);
 figure(1);
 clf;
 %%
-%%
-subplot(2,1,1);
-plot(stepTimes, data_stepAccel);
+
+plot(data_stepVolt, data_stepAccel);
 grid('on');
     title('Accel (g)')
-    xlabel('time(s)');
+    xlabel('FG Voltage');
     ylabel('peak accel (g)');
     axis([0,nStepData/sampFreq,0,4]);
-%%
-subplot(2,1,2);
-plot(stepTimes, data_stepVolt);
-grid('on');
-    title('FG Voltage')
-    xlabel('time(s)');
-    ylabel('FG voltage (V)');
-    axis([0,nStepData/sampFreq,-0,1]);
+

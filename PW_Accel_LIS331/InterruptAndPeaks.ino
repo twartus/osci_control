@@ -10,11 +10,12 @@
 void Timer1_Setup(){
   Timer1.initialize();
 //  long T_interrupt = T_80HZ_us + T_ADJUST;
+//  Timer1.attachInterrupt(peak_ISR_80, T_80HZ_us);
   Timer1.attachInterrupt(peak_ISR_1k, T_1KHZ_us);
 }
 
 //This is for the peak retrieval
-void peak_ISR(){
+void peak_ISR_80(){
 
   Serial.println(xPeak);  
   peak_reset();
@@ -40,7 +41,7 @@ void peak_ISR_1k(){
 void peak_update(){    //it is a single line, but if it becomes more complex a function is helpful
   xTemp = read_XOnly_V3();
   if (xTemp < 16000){
-   xPeak = max(xPeak,read_XOnly_V3()); //really nothing more to it for now
+   xPeak = max(xPeak,xTemp); //really nothing more to it for now
   };
                                       //peak is the highest value
   
