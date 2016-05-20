@@ -1,5 +1,6 @@
 #define PEAKFREQUENCY 123
 #define T_80HZ_us 12500
+#define T_1KHZ_us 1000    //In Use
 //#define T_80HZ_us 100000 
 #define T_ADJUST 0
 
@@ -9,7 +10,7 @@
 void Timer1_Setup(){
   Timer1.initialize();
 //  long T_interrupt = T_80HZ_us + T_ADJUST;
-  Timer1.attachInterrupt(peak_ISR, T_80HZ_us);
+  Timer1.attachInterrupt(peak_ISR_1k, T_1KHZ_us);
 }
 
 //This is for the peak retrieval
@@ -19,6 +20,21 @@ void peak_ISR(){
   peak_reset();
   
 }
+
+void peak_ISR_1k(){
+  peak_update();
+  
+  peakcount += 1;
+  
+  if (peakcount > 12){
+    Serial.println(xPeak);
+    peak_reset();
+  }
+  
+}
+
+
+//
 
 void peak_update(){    //it is a single line, but if it becomes more complex a function is helpful
   xTemp = read_XOnly_V3();
