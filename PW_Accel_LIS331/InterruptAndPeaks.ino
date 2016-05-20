@@ -24,11 +24,12 @@ void peak_ISR(){
 void peak_ISR_1k(){
   peak_update();
   
-  peakcount += 1;
+  peakCount += 1;
   
-  if (peakcount > 12){
+  if (peakCount > 12){
     Serial.println(xPeak);
     peak_reset();
+    peakCount = 0;
   }
   
 }
