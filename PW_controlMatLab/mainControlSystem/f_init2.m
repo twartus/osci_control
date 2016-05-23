@@ -54,3 +54,6 @@ if(mode_initializeFG == 1)   %initialize if initMode >0
 end;
 %%begin reading arduino data
 readasync(arduino1);
+
+%% Initialize Filter
+[filt_num, filt_den] = butter(2, 0.1);

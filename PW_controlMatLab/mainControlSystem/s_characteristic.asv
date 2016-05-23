@@ -16,13 +16,12 @@ f_init2;
 %%
 % sampFreq = 80;
 charVLow = 0.100;
-charVHigh = 0.800;
+charVHigh = 0.900;
 plotAHigh = 5;
 charStep = 0.001;
-nStepData = ((charVHigh - charVLow)/charStep) + 1;
-data_charVolt = (charVLow:charStep:charVHigh);
-% data_charAccel = zeros(1, nStepData);
-data_charAccel = data_charVolt*0;
+nStepData = ((charHigh - charLow)/charStep) + 1;
+data_charVolt = (charLow:charStep:charHigh);
+data_charAccel = zeros(1, nStepData);
 
 
 fprintf(functionGen1,sprintf('VOLT %d', nowVoltage));   %initialize
@@ -37,13 +36,13 @@ for i = 1:nStepData
         fprintf(functionGen1,sprintf('VOLT %d', 0.100));
         return;
     else
-        if((mod(i,100) ==0))
-            fprintf('Sweep step %d of %d \n', i, nStepData);
-        end;
+        if((mod(i,100) ==0)
+            
+        fprintf('Stepping at n = %d \n', i);
+        fprintf('Stepping to %d \n', nowVoltage);
         fprintf(functionGen1,sprintf('VOLT %d', nowVoltage));
     end;
     %%
-    
     data_charAccel(i) = fscanf(arduino1, '%f');        %Read in New Data               
 end;
 %allow rest
@@ -62,5 +61,5 @@ grid('on');
     title('Accel (g)')
     xlabel('FG Voltage');
     ylabel('Peak accel (g)');
-    axis([0,charVHigh,0,plotAHigh]);
+    axis([0,charVLow,0,plotAHigh]);
 

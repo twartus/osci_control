@@ -1,6 +1,7 @@
 #define PEAKFREQUENCY 123
 #define T_80HZ_us 12500
 #define T_1KHZ_us 1000    //In Use
+#define T_10HZ_us 100000  //for char make
 //#define T_80HZ_us 100000 
 #define T_ADJUST 0
 
@@ -11,7 +12,7 @@ void Timer1_Setup(){
   Timer1.initialize();
 //  long T_interrupt = T_80HZ_us + T_ADJUST;
 //  Timer1.attachInterrupt(peak_ISR_80, T_80HZ_us);
-  Timer1.attachInterrupt(peak_ISR_1k, T_1KHZ_us);
+  Timer1.attachInterrupt(peak_ISR_80, T_10HZ_us);
 }
 
 //This is for the peak retrieval

@@ -1,7 +1,7 @@
-%set(plot1,'YData',data);          %hopefully faster than other ways 
+set(plot1,'YData',data);          %hopefully faster than other ways 
                                     %it did not. took 25ms+
                                     
-set(plot1,'Ydata', filter(filt_num, filt_den, data));
+set(plot1,'Ydata
                                     
 set(plot2,'YData',fg1VCorrArray);   
 drawnow;                            %or else waits until program end to plot

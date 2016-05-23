@@ -77,22 +77,24 @@ void setup()
   Timer1_Setup();
 
   accelAwake = 0;
-  TIMSK1 = 0;
+//  TIMSK1 = 0;
   pinMode(SLEEPPIN, INPUT); 
 }
 
 
 void loop()
 {
+
+  
   accelAwake = digitalRead(SLEEPPIN);
   TIMSK1 = accelAwake;
   if(accelAwake){
       //peak_update();
-    //  printXOnly();
+//      printXOnly();
     //  testGetValSpeed();
     //xVal = read_XOnly_V3();
     //printXOnly();
-//      peak_update();
+      peak_update();
   } else {
     delay(5000);
   }
