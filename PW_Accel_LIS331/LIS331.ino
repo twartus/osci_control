@@ -147,7 +147,8 @@ void Accelerometer_Setup()
   DR1DR0: Data rate (00=50Hz, 01=100Hz, 10=400Hz, 11=1000Hz)
   Zen, Yen, Xen: Z enable, Y enable, X enable
   */
-  byte ctrlRegByte = 0x37; // 00111111 : normal mode, 1000Hz, xyz enabled
+  byte ctrlRegByte = 0x38; 
+    // 00111111 : normal mode, 1000Hz, xyz enabled = 0x38
 
   // Send the data for Control Register 1
   digitalWrite(SS, LOW);
