@@ -16,6 +16,7 @@ y1g = 2720;
 %%
 yTarget = 3.00;
 yError = 0;
+dataE = zeros(1, numberOfData);
 yErrorMag = 0;
 yTriggerMin = 0.050; %Minimum error to trigger correction
 yCorrectionMax = 1.15; %Maximum errr correction, to avoid large correction from noise

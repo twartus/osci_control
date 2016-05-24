@@ -15,6 +15,8 @@ while(mode_run == 1)
         f_getAccel;     %take in acceleration reading
         f_dataShift;    %shift data registers to left
     
+        f_errorCalc;    %calculate Error and shift
+        
         f_getNewVolt;   %calculate new Voltage to send
         f_voltLimit;    %apply limits
     end;
