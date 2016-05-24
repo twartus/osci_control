@@ -1,5 +1,9 @@
 %%
 %To be Commented Later -Eric
+
+gui = control_GUI;
+uiwait(gui);
+
 f_settings; %select operations to run, and other high level details
             
 f_init1;    %initialize variables, and other low level stuff
