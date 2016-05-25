@@ -1,8 +1,8 @@
 %%
 %To be Commented Later -Eric
 
-% gui = control_GUI;
-% uiwait(gui);
+gui = control_GUI;
+uiwait(gui);
 
 f_settings; %select operations to run, and other high level details
             
@@ -10,6 +10,8 @@ f_init1;    %initialize variables, and other low level stuff
 f_init2;    %initialize variables, and other low level stuff
 %%
 while(mode_run == 1)
+  toc
+  tic
     %%
     if(mode_dataReading == 1)
         f_getAccel;     %take in acceleration reading
@@ -20,9 +22,17 @@ while(mode_run == 1)
         f_getNewVolt;   %calculate new Voltage to send
         f_voltLimit;    %apply limits
     end;
+    
     %%
     if(mode_voltControl ==1)
-        f_voltSend;     %send the new voltage
+        fgCount = fgCount+1;
+        if(fgCount > 7)
+            
+            
+            f_voltSend;     %send the new voltage
+            
+            fgCount = 0;
+        end;
     end;
     %%
 

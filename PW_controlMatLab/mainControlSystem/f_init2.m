@@ -43,7 +43,12 @@ if(mode_voltControl == 1);
 % Initialize Function Generator on gpib
     functionGen1 = gpib('AGILENT', 7, 10);
     fopen(functionGen1);
+    
+    %retrieve nowvoltage
+    f_voltRead;
+    fg1Volt = now_fg1_Voltage;
 end;
+%%
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Set the Function generator %%%%

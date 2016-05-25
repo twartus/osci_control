@@ -1,3 +1,3 @@
 yError = data(numberOfData) - yTarget;  %negative if below, positive if above  target.
-dataE(numberOfData) = yError;           %redundant but ok-ish
-dataE(1:(numberOfData-1)) = dataE(2:numberOfData);  %shift, store the errors
+fg1VCorrArray(numberOfData) = yError;           %redundant but ok-ish
+fg1VCorrArray(1:(numberOfData-1)) = fg1VCorrArray(2:numberOfData);  %shift, store the errors
