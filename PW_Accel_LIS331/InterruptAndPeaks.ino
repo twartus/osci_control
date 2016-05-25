@@ -11,8 +11,8 @@
 void Timer1_Setup(){
   Timer1.initialize();
 //  long T_interrupt = T_80HZ_us + T_ADJUST;
-//  Timer1.attachInterrupt(peak_ISR_80, T_80HZ_us);
-  Timer1.attachInterrupt(peak_ISR_80, T_10HZ_us);
+  Timer1.attachInterrupt(peak_ISR_80, T_80HZ_us);
+//  Timer1.attachInterrupt(peak_ISR_80, T_10HZ_us);
 }
 
 //This is for the peak retrieval

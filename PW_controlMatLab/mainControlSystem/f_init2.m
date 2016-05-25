@@ -29,7 +29,7 @@ end;
 delete(instrfindall);   %clearing
 %  clear all; clc; close all;
 %Initialize Arduino on serial
-arduino1 = serial('COM13','BaudRate',115200);  
+arduino1 = serial('COM5','BaudRate',115200);  
 %set(s, ' Terminator', 'LF'); % Default terminator is \n
 set(arduino1,'BaudRate', 115200);
 set(arduino1,'DataBits', 8);

@@ -1,8 +1,8 @@
 %%
 %To be Commented Later -Eric
 
-gui = control_GUI;
-uiwait(gui);
+% gui = control_GUI;
+% uiwait(gui);
 
 f_settings; %select operations to run, and other high level details
             

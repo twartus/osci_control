@@ -14,7 +14,7 @@ y1g = 2720;
 %Corrections to V are made until within yTarget+-yTriggerMin
 %Corrections rate is limited at yTarget +- yCorrectionMax
 %%
-yTarget = 3.00;
+% yTarget = getappdata(gui, 'accel_Field');
 yError = 0;
 yErrorMag = 0;
 yTriggerMin = 0.050; %Minimum error to trigger correction
