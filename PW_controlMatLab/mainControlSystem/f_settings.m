@@ -4,21 +4,21 @@
 
 mode_run = 1;               %run the program. Should always be on
 
-mode_initializeFG = 0;      %sets the FG during init2. Should always be on
+mode_initializeFG = 1;      %sets the FG during init2. Should always be on
 
 mode_dataReading = 1;       %read data and process it
 
-
-mode_voltControl = getappdata(gui, 'control_Mode');      
-                            
-                            %allow automatic voltage updating
-                            %allow patterns to trigger program end
-
-mode_plotting = getappdata(gui, 'plot_Mode');         
-
-                            %plot realtime graphs
-                            %AVOID THIS FOR NOW
-
-mode_record = getappdata(gui, 'record_Mode');   
-                        
-                            %record data
+% 
+% mode_voltControl = getappdata(gui, 'control_Mode');      
+%                             
+%                             %allow automatic voltage updating
+%                             %allow patterns to trigger program end
+% 
+% mode_plotting = getappdata(gui, 'plot_Mode');         
+% 
+%                             %plot realtime graphs
+%                             %AVOID THIS FOR NOW
+% 
+% mode_record = getappdata(gui, 'record_Mode');   
+%                         
+%                             %record data
