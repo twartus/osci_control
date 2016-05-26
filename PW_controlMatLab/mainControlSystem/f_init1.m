@@ -11,8 +11,9 @@ t = (0:1/sampFreq:(numberOfData-1)/sampFreq);
 y0g = 0;
 y1g = 2720;
 
+accelRes = 4;   %Acceleration reounded to 4 decimal places when normalizing
 y1g_inv = 1/y1g;
-y1g_inv = round(y1g_inv*10^4)/10^4;
+y1g_inv = round(y1g_inv*10^accelRes)/10^accelRes;
 %Target accel
 %Corrections to V are made until within yTarget+-yTriggerMin
 %Corrections rate is limited at yTarget +- yCorrectionMax
