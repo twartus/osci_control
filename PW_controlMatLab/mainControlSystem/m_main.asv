@@ -18,8 +18,7 @@ while(mode_run == 1)
         f_getAccel;     %take in acceleration reading
         f_dataCalc;   %shift data, normalize, calculate derived values
     
-%         f_errorCalc;    %calculate Error and shift
-%has been moved into dataCalc
+        f_errorCalc;    %calculate Error and shift
         
         f_getNewVolt;   %calculate new Voltage to send
         f_voltLimit;    %apply limits
@@ -36,7 +35,7 @@ while(mode_run == 1)
             end;
         elseif (prerecordCount < n_prerecord)
             prerecordCount = prerecordCount + 1;
-            fg1Volt = now_fg1_Voltage; %undo anything the control tried to do
+            fg1Volt = now_fg1_Voltage
         elseif (prerecordCount == n_prerecord)
             prerecordCount = prerecordCount + 1;
             fg1Volt = now_fg1_Voltage; %undo anything the control tried to do

@@ -1,1 +1,0 @@
-data(1:(numberOfData-1)) = data(2:numberOfData);
