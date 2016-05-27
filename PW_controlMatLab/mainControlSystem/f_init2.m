@@ -1,4 +1,5 @@
 %There are alot of plots
+plotCount = 0;
 if((mode_plotting == 1) && (mode_plotting_extra == 1))
     figure(2);
     %%

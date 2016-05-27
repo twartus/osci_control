@@ -10,6 +10,7 @@ f_init1;    %initialize variables, and other low level stuff
 f_init2;    %initialize variables, and other low level stuff
 f_init3;    %initialize communications and plots
 %%
+tic
 while(mode_run == 1)
   toc
   tic
@@ -44,8 +45,12 @@ while(mode_run == 1)
     end;
     %%
 
-    if(mode_plotting == 1) 
-        f_plotData;     %plot data for visuals
+    if(mode_plotting == 1)
+        plotCount = plotCount + 1;
+        if (plotCount > 7)
+            f_plotData;     %plot data for visuals
+            plotCount = 0;
+        end;
     end;                %last because it is slowest
     
 end;

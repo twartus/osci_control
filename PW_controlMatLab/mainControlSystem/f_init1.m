@@ -3,7 +3,10 @@
 
 % variables
 %%
+jumpCount = 0;
+jumpDel = 20;
 numberOfData = 500;  %how many points to plot
+n = numberOfData; %for shorthand
 data_Accel = zeros(1, numberOfData);  %accel data array
 sampFreq = 80;
 t = (0:1/sampFreq:(numberOfData-1)/sampFreq);
@@ -26,7 +29,7 @@ yTriggerMin = 0.050; %Minimum error to trigger correction
 yCorrectionMax = 1.15; %Maximum errr correction, to avoid large correction from noise
 yCorrection = 0;
 
-yToVoltConst = .02/8; %convert yCorrection to vCorrection
+yToVoltConst = .005/8; %convert yCorrection to vCorrection
 corrPower = 1;  %Power of correction e.g. Linear(1), Square(2), Cube(3)
 %%
 fg1Freq = 80;
@@ -48,7 +51,7 @@ n_MA_fit = 15; %number of points in moving average for fit
 data_fit = zeros(1, numberOfData); %Absolute Perfect of difference from previous accel %unit = %
 data_fit_MA = zeros(1, numberOfData); %unit = %
 %
-req_K_AV_fit = 5; %Percent required in K_AV_fit_MA
+req_K_AV_fit = 1; %Percent required in K_AV_fit_MA
 n_timeDelay = 1; %sampled delayed between voltage and accel
 n_MA_K_AV = 10; %number of points in moving average for K_AV
 data_K_AV = zeros(1, numberOfData); %ratio acceleration to Voltage %unit = g/Vpp
