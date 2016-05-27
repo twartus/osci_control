@@ -25,12 +25,12 @@ if((mode_plotting == 1) && (mode_plotting_extra == 1))
     %%
     %p2_3
     subplot(4,2,3);                
-    p2_3 = plot(t,data_fit);  %Plot
-    title('Accel fit %');
-    axis([0,numberOfData/sampFreq,0,25]);
+    p2_3 = plot(t,data_Error_MA);  %Plot
+    title('Accel Error MA');
+    axis([0,numberOfData/sampFreq,-2,2]);
     grid('on')
     xlabel('time(s)');
-    ylabel('Fit (%)');
+    ylabel('Error (t)');
     drawnow;
     %%
     %p2_4

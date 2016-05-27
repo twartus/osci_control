@@ -7,7 +7,7 @@ if(mode_plotting == 1)
     
     subplot(2,1,1);                 %Plot Accelerations
     plot1 = plot(t,data_Accel);           %Plot
-    axis([0,numberOfData/sampFreq,-0.5,4]);    %-0.5 to 4
+    axis([0,numberOfData/sampFreq,0,6]);    %-0.5 to 4
     grid('on');
     title('accel')
     xlabel('time(s)');
@@ -16,7 +16,7 @@ if(mode_plotting == 1)
     subplot(2,1,2);                 %Plot Errors (something else later)
     plot2 = plot(t,data_Error);  %Plot
     title('error');
-    axis([0,numberOfData/sampFreq,-1,1]);
+    axis([0,numberOfData/sampFreq,-2,2]);
     grid('on')
     xlabel('time(s)');
     ylabel('something (btu)');
@@ -31,7 +31,7 @@ end;
 delete(instrfindall);   %clearing
 %  clear all; clc; close all;
 %Initialize Arduino on serial
-arduino1 = serial('COM13','BaudRate',115200);  
+arduino1 = serial('COM5','BaudRate',115200);  
 %set(s, ' Terminator', 'LF'); % Default terminator is \n
 set(arduino1,'BaudRate', 115200);
 set(arduino1,'DataBits', 8);

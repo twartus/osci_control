@@ -25,11 +25,11 @@ yTarget = getappdata(gui, 'accel_Field');
 yError = 0;
 % dataE = zeros(1, numberOfData);
 yErrorMag = 0;
-yTriggerMin = 0.050; %Minimum error to trigger correction
-yCorrectionMax = 1.15; %Maximum errr correction, to avoid large correction from noise
+yTriggerMin = 0.001; %Minimum error to trigger correction
+yCorrectionMax = 1.05; %Maximum errr correction, to avoid large correction from noise
 yCorrection = 0;
 
-yToVoltConst = .005/8; %convert yCorrection to vCorrection
+yToVoltConst = .001/8; %convert yCorrection to vCorrection
 corrPower = 1;  %Power of correction e.g. Linear(1), Square(2), Cube(3)
 %%
 fg1Freq = 80;
@@ -41,24 +41,30 @@ fgCount = 0;
 
 %%
 %more arrays
+jump_Threshhold = 0.10 * 3; %ten percent of 3g
 prerecordCount = 0;
 n_prerecord = 100; % number to finish collecting before corrections
 data_fg1Volt = zeros(1,numberOfData); %fg1 Voltages %unit = Vpp
 data_Error = zeros(1,numberOfData); %difference from expected Value %unit = g
+data_Error_MA = zeros(1,numberOfData); %MA of error
+n_Error_MA = 20; %n of Error MA
 %
 req_fit = 8; %Percent fit_MA required for a big jump %unit = %
-n_MA_fit = 15; %number of points in moving average for fit
+n_MA_fit = 20; %number of points in moving average for fit
 data_fit = zeros(1, numberOfData); %Absolute Perfect of difference from previous accel %unit = %
 data_fit_MA = zeros(1, numberOfData); %unit = %
 %
 req_K_AV_fit = 1; %Percent required in K_AV_fit_MA
 n_timeDelay = 1; %sampled delayed between voltage and accel
-n_MA_K_AV = 10; %number of points in moving average for K_AV
+n_MA_K_AV = 20; %number of points in moving average for K_AV
 data_K_AV = zeros(1, numberOfData); %ratio acceleration to Voltage %unit = g/Vpp
 data_K_AV_MA = zeros(1, numberOfData); %moving average %unit = g/Vpp
 data_K_AV_fit = zeros(1, numberOfData); %how well each point fit to its MA %unit = %
 %This is the value that decides if the K_AV_MA is suitable
 data_K_AV_fit_MA = zeros(1, numberOfData); %MA of fit to MA %unit = %
               
-
-
+%jumpdown
+jumpDownFitTHold = 10;
+jumpDownVoltTHold = 0.650;
+jumpDownSafeVolt = 0.600;
+noLid_K_AV = 6.7;

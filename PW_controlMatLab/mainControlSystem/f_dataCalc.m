@@ -16,10 +16,22 @@ data_fg1Volt(numberOfData) = fg1Volt;
 %shift
 data_Error(1:(numberOfData-1)) = data_Error(2:numberOfData);  %shift, store the errors
 %calculate
-yError = data_Accel(numberOfData) - yTarget;  %negative if below, positive if above  target.
+data_Error(numberOfData) = data_Accel(numberOfData) - yTarget;  %negative if below, positive if above  target.
 %restore, redundant
-data_Error(numberOfData) = yError;           %redundant but ok-ish
+% data_Error(numberOfData) = yError;           %redundant but ok-ish
 
+%%
+%Error MA
+%shift
+data_Error_MA(1:(numberOfData-1)) = data_Error_MA(2:numberOfData);  %shift
+%calculate
+data_Error_MA(numberOfData) = 0;
+for j = 1:n_Error_MA
+    data_Error_MA(numberOfData) = data_Error_MA(numberOfData) + data_Error(numberOfData + 1 - j);
+end;
+data_Error_MA(numberOfData) = data_Error_MA(numberOfData)/n_Error_MA;
+%send to calcNext
+yError = data_Error_MA(numberOfData);
 %%
 %fit
 %shift

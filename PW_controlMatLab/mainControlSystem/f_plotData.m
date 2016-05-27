@@ -9,7 +9,7 @@ set(plot2,'YData',data_Error);
 if(mode_plotting_extra == 1)
     set(p2_1,'YData',data_fg1Volt); 
     set(p2_2,'YData',data_Error); 
-    set(p2_3,'YData',data_fit); 
+    set(p2_3,'YData',data_Error_MA); 
     set(p2_4,'YData',data_fit_MA); 
     
     set(p2_5,'YData',data_K_AV); 
