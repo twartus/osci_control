@@ -16,8 +16,8 @@ mode_voltControl = getappdata(gui, 'control_Mode');
 
 mode_plotting = getappdata(gui, 'plot_Mode');         
 
-                            %plot realtime graphs
-                            %AVOID THIS FOR NOW
+mode_plotting_extra = 1;
+                            
 
 mode_record = getappdata(gui, 'record_Mode');   
                         

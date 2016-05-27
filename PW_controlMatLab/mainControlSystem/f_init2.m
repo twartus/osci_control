@@ -1,64 +1,87 @@
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Premake a Plot %%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(mode_plotting == 1)
-    figure(1);
-    
-    subplot(2,1,1);                 %Plot Accelerations
-    plot1 = plot(t,data);           %Plot
-    axis([0,numberOfData/sampFreq,-0.5,4]);    %-0.5 to 4
+%There are alot of plots
+plotCount = 0;
+if((mode_plotting == 1) && (mode_plotting_extra == 1))
+    figure(2);
+    %%
+    %p2_1
+    subplot(4,2,1);                 %Plot Accelerations
+    p2_1 = plot(t,data_fg1Volt);           %Plot
+    axis([0,numberOfData/sampFreq,0,1.2]);    
     grid('on');
-    title('accel')
+    title('Voltage')
     xlabel('time(s)');
-    ylabel('peak accel (g)');
-
-    subplot(2,1,2);                 %Plot Errors (something else later)
-    plot2 = plot(t,fg1VCorrArray);  %Plot
-    title('error');
-    axis([0,numberOfData/sampFreq,-1,1]);
+    ylabel('Voltage(Vpp)');
+    
+    %%
+    %p2_2
+    subplot(4,2,2);                
+    p2_2 = plot(t,data_Error);  %Plot
+    title('Accel Error');
+    axis([0,numberOfData/sampFreq,-2,2]);
     grid('on')
     xlabel('time(s)');
-    ylabel('something (btu)');
+    ylabel('Accel (g)');
     drawnow;
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Open Arduino and FG Objects %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-delete(instrfindall);   %clearing
-%  clear all; clc; close all;
-%Initialize Arduino on serial
-arduino1 = serial('COM5','BaudRate',115200);  
-%set(s, ' Terminator', 'LF'); % Default terminator is \n
-set(arduino1,'BaudRate', 115200);
-set(arduino1,'DataBits', 8);
-set(arduino1,'StopBits', 1);
-fopen(arduino1);
-arduino1.ReadAsyncMode = 'continuous';
-fwrite(arduino1,'w'); %tell to wake up
-
-%%
-if(mode_voltControl == 1);
-% Initialize Function Generator on gpib
-    functionGen1 = gpib('AGILENT', 7, 10);
-    fopen(functionGen1);
+    %%
+    %p2_3
+    subplot(4,2,3);                
+    p2_3 = plot(t,data_fit);  %Plot
+    title('Accel fit %');
+    axis([0,numberOfData/sampFreq,0,25]);
+    grid('on')
+    xlabel('time(s)');
+    ylabel('Fit (%)');
+    drawnow;
+    %%
+    %p2_4
+    subplot(4,2,4);                 
+    p2_4 = plot(t,data_fit_MA);  %Plot
+    title('Accel fit MA %');
+    axis([0,numberOfData/sampFreq,0,25]);
+    grid('on')
+    xlabel('time(s)');
+    ylabel('Fit (%)');
+    drawnow;
+    %%
+    %p2_5
+    subplot(4,2,5);                
+    p2_5 = plot(t,data_K_AV);  %Plot
+    title('K_AV (Ratio Accel to Voltage)');
+    axis([0,numberOfData/sampFreq,0,10]);
+    grid('on')
+    xlabel('time(s)');
+    ylabel('K_AV (g/Vpp)');
+    drawnow;
+    %%
+    %p2_6
+    subplot(4,2,6);                 
+    p2_6 = plot(t,data_K_AV_MA);  %Plot
+    title('K_AV_MA (Moving Average)');
+    axis([0,numberOfData/sampFreq,0,10]);
+    grid('on')
+    xlabel('time(s)');
+    ylabel('K_AV_MA (g/Vpp)');
+    drawnow;
+    %%
+    %p2_7
+    subplot(4,2,7);                 
+    p2_7 = plot(t,data_K_AV_fit);  %Plot
+    title('K_AV fit (%)');
+    axis([0,numberOfData/sampFreq,0,25]);
+    grid('on')
+    xlabel('time(s)');
+    ylabel('K_AV fit (%)');
+    drawnow;
+    %%
+    %p2_8
+    subplot(4,2,8);                 
+    p2_8 = plot(t,data_K_AV_fit_MA);  %Plot
+    title('K_AV fit MA (%)');
+    axis([0,numberOfData/sampFreq,0,25]);
+    grid('on')
+    xlabel('time(s)');
+    ylabel('K_AV fit MA (%)');
+    drawnow;    
     
-    %retrieve nowvoltage
-    f_voltRead;
-    fg1Volt = now_fg1_Voltage;
+    
 end;
-%%
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Set the Function generator %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(mode_initializeFG == 1)   %initialize if initMode >0
-    fprintf(functionGen1,sprintf('VOLT %d', fg1Volt));
-    fprintf(functionGen1,sprintf('FREQ %d', fg1Freq));
-end;
-%%begin reading arduino data
-readasync(arduino1);
-
-%% Initialize Filter
-[filt_num, filt_den] = butter(2, 0.1);
