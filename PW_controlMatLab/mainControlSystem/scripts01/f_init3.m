@@ -6,17 +6,17 @@ if(modes.plotting == 1)
     figure(1);
     
     subplot(2,1,1);                 %Plot Accelerations
-    plot1 = plot(t,data_Accel);           %Plot
-    axis([0,numberOfData/sampFreq,0,6]);    %-0.5 to 4
+    plot1 = plot(t,datas.Accel);           %Plot
+    axis([0,datas.n/sampFreq,0,6]);    %-0.5 to 4
     grid('on');
     title('accel')
     xlabel('time(s)');
     ylabel('peak accel (g)');
 
     subplot(2,1,2);                 %Plot Errors (something else later)
-    plot2 = plot(t,data_Error);  %Plot
+    plot2 = plot(t,datas.Error);  %Plot
     title('error');
-    axis([0,numberOfData/sampFreq,-2,2]);
+    axis([0,datas.n/sampFreq,-2,2]);
     grid('on')
     xlabel('time(s)');
     ylabel('something (btu)');
@@ -48,7 +48,7 @@ if(modes.voltControl == 1);
     
     %retrieve nowvoltage
     f_voltRead;
-    fg1Volt = now_fg1_Voltage;
+    fg1.Volt = fg1.nowVoltage;
 end;
 %%
 %%
@@ -56,8 +56,8 @@ end;
 %%%% Set the Function generator %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(modes.initializeFG == 1)   %initialize if initMode >0
-    fprintf(functionGen1,sprintf('VOLT %d', fg1Volt));
-    fprintf(functionGen1,sprintf('FREQ %d', fg1Freq));
+    fprintf(functionGen1,sprintf('VOLT %d', fg1.Volt));
+    fprintf(functionGen1,sprintf('FREQ %d', fg1.Freq));
 end;
 %%begin reading arduino data
 readasync(arduino1);

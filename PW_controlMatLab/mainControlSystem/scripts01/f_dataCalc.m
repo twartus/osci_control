@@ -1,93 +1,93 @@
 % %%
 % %Accel
 % %Shift
-% data_Accel(1:(numberOfData-1)) = data_Accel(2:numberOfData);
+% datas.Accel(1:(datas.n-1)) = datas.Accel(2:datas.n);
 % %normalize, cut deci
-% data_Accel(numberOfData) = abs((data_Accel(numberOfData)- y1g) * y1g_inv);
+% datas.Accel(datas.n) = abs((datas.Accel(datas.n)- y1g) * y1g_inv);
 
 %%
 %Shift
-data_fg1Volt(1:(numberOfData-1)) = data_fg1Volt(2:numberOfData);
+datas.fg1Volt(1:(datas.n-1)) = datas.fg1Volt(2:datas.n);
 %Voltage
-data_fg1Volt(numberOfData) = fg1Volt;
+datas.fg1Volt(datas.n) = fg1.Volt;
 
 %%
 %Error
 %shift
-data_Error(1:(numberOfData-1)) = data_Error(2:numberOfData);  %shift, store the errors
+datas.Error(1:(datas.n-1)) = datas.Error(2:datas.n);  %shift, store the errors
 %calculate
-data_Error(numberOfData) = data_Accel(numberOfData) - yTarget;  %negative if below, positive if above  target.
+datas.Error(datas.n) = datas.Accel(datas.n) - yAccel.Target;  %negative if below, positive if above  target.
 %restore, redundant
-% data_Error(numberOfData) = yError;           %redundant but ok-ish
+% datas.Error(datas.n) = yError;           %redundant but ok-ish
 
 %%
 %Error MA
 %shift
-data_Error_MA(1:(numberOfData-1)) = data_Error_MA(2:numberOfData);  %shift
+datas.Error_MA(1:(datas.n-1)) = datas.Error_MA(2:datas.n);  %shift
 %calculate
-data_Error_MA(numberOfData) = 0;
+datas.Error_MA(datas.n) = 0;
 for j = 1:n_Error_MA
-    data_Error_MA(numberOfData) = data_Error_MA(numberOfData) + data_Error(numberOfData + 1 - j);
+    datas.Error_MA(datas.n) = datas.Error_MA(datas.n) + datas.Error(datas.n + 1 - j);
 end;
-data_Error_MA(numberOfData) = data_Error_MA(numberOfData)/n_Error_MA;
+datas.Error_MA(datas.n) = datas.Error_MA(datas.n)/dataSettings.n_Error_MA;
 %send to calcNext
-yError = data_Error_MA(numberOfData);
+yAccel.Error = datas.Error_MA(datas.n);
 %%
 %fit
 %shift
-data_fit(1:(numberOfData-1)) = data_fit(2:numberOfData);  %shift, store the errors
+datas.fit(1:(datas.n-1)) = datas.fit(2:datas.n);  %shift, store the errors
 %calculate fit, to the previous value
-data_fit(numberOfData) = data_Accel(numberOfData - 1) - data_Accel(numberOfData);
-data_fit(numberOfData) = data_fit(numberOfData) / data_Accel(numberOfData);
-data_fit(numberOfData) = round(data_fit(numberOfData) * 10^4 )/10^2;%two deci places
-data_fit(numberOfData) = abs(data_fit(numberOfData));
+datas.fit(datas.n) = datas.Accel(datas.n - 1) - datas.Accel(datas.n);
+datas.fit(datas.n) = datas.fit(datas.n) / datas.Accel(datas.n);
+datas.fit(datas.n) = round(datas.fit(datas.n) * 10^4 )/10^2;%two deci places
+datas.fit(datas.n) = abs(datas.fit(datas.n));
 %MA
-data_fit_MA(1:(numberOfData-1)) = data_fit_MA(2:numberOfData);  %shift
-data_fit_MA(numberOfData) = 0;
+datas.fit_MA(1:(datas.n-1)) = datas.fit_MA(2:datas.n);  %shift
+datas.fit_MA(datas.n) = 0;
 for j = 1:n_MA_fit
-    data_fit_MA(numberOfData) = data_fit_MA(numberOfData) + data_fit(numberOfData + 1 - j);
+    datas.fit_MA(datas.n) = datas.fit_MA(datas.n) + datas.fit(datas.n + 1 - j);
 end;
-data_fit_MA(numberOfData) = data_fit_MA(numberOfData)/n_MA_fit;
+datas.fit_MA(datas.n) = datas.fit_MA(datas.n)/n_MA_fit;
 
 %%
 %K_AV
 
-n_MA_K_AV = 10; %number of points in moving average for K_AV
+dataSettings.n_MA_K_AV = 10; %number of points in moving average for K_AV
 
 %K_AV
 %shift
-data_K_AV(1:(numberOfData-1)) = data_K_AV(2:numberOfData);  %shift
+datas.K_AV(1:(datas.n-1)) = datas.K_AV(2:datas.n);  %shift
 %calc
-data_K_AV(numberOfData) = data_Accel(numberOfData) / data_fg1Volt(numberOfData);
+datas.K_AV(datas.n) = datas.Accel(datas.n) / datas.fg1Volt(datas.n);
 
 %K_AV_MA
 %shift
-data_K_AV_MA(1:(numberOfData-1)) = data_K_AV_MA(2:numberOfData);  %shift
+datas.K_AV_MA(1:(datas.n-1)) = datas.K_AV_MA(2:datas.n);  %shift
 %calc MA
-data_K_AV_MA(numberOfData) = 0;
-for j = 1:n_MA_K_AV
-    data_K_AV_MA(numberOfData) = data_K_AV_MA(numberOfData) + data_K_AV(numberOfData + 1 - j);
+datas.K_AV_MA(datas.n) = 0;
+for j = 1:dataSettings.n_MA_K_AV
+    datas.K_AV_MA(datas.n) = datas.K_AV_MA(datas.n) + datas.K_AV(datas.n + 1 - j);
 end;
-data_K_AV_MA(numberOfData) = data_K_AV_MA(numberOfData)/n_MA_K_AV;
+datas.K_AV_MA(datas.n) = datas.K_AV_MA(datas.n)/dataSettings.n_MA_K_AV;
 
 %K_AV_fit
 %shift
-data_K_AV_fit(1:(numberOfData-1)) = data_K_AV_fit(2:numberOfData);  %shift
+datas.K_AV_fit(1:(datas.n-1)) = datas.K_AV_fit(2:datas.n);  %shift
 %calculate fit, to the K_AV_MA
 %In Percents
-data_K_AV_fit(numberOfData) = data_K_AV_MA(numberOfData) - data_K_AV(numberOfData);
-data_K_AV_fit(numberOfData) = data_K_AV_fit(numberOfData) / data_K_AV_MA(numberOfData);
-data_K_AV_fit(numberOfData) = round(data_K_AV_fit(numberOfData) * 10^4 )/10^2;%two deci places
-data_K_AV_fit(numberOfData) = abs(data_K_AV_fit(numberOfData));
+datas.K_AV_fit(datas.n) = datas.K_AV_MA(datas.n) - datas.K_AV(datas.n);
+datas.K_AV_fit(datas.n) = datas.K_AV_fit(datas.n) / datas.K_AV_MA(datas.n);
+datas.K_AV_fit(datas.n) = round(datas.K_AV_fit(datas.n) * 10^4 )/10^2;%two deci places
+datas.K_AV_fit(datas.n) = abs(datas.K_AV_fit(datas.n));
 
 %K_AV_fit_MA
 %shift
-data_K_AV_fit_MA(1:(numberOfData-1)) = data_K_AV_fit_MA(2:numberOfData);  %shift
+datas.K_AV_fit_MA(1:(datas.n-1)) = datas.K_AV_fit_MA(2:datas.n);  %shift
 %calculate
-data_K_AV_fit_MA(numberOfData) = 0;
-for j = 1:n_MA_K_AV
-    data_K_AV_fit_MA(numberOfData) = data_K_AV_fit_MA(numberOfData) + data_K_AV_fit(numberOfData + 1 - j);
+datas.K_AV_fit_MA(datas.n) = 0;
+for j = 1:dataSettings.n_MA_K_AV
+    datas.K_AV_fit_MA(datas.n) = datas.K_AV_fit_MA(datas.n) + datas.K_AV_fit(datas.n + 1 - j);
 end;
-data_K_AV_fit_MA(numberOfData) = data_K_AV_fit_MA(numberOfData)/n_MA_K_AV;
+datas.K_AV_fit_MA(datas.n) = datas.K_AV_fit_MA(datas.n)/dataSettings.n_MA_K_AV;
 
 

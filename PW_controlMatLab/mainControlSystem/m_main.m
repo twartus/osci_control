@@ -6,7 +6,8 @@ uiwait(gui);
 
 f_settings; %select operations to run, and other high level details
             
-f_init1;    %initialize variables, and other low level stuff
+% f_init1;    %initialize variables, and other low level stuff
+[ counts, datas, dataSettings, fg1, LIS331, n, sampFreq, t, yAccel   ] = f_init1(gui);
 f_init2;    %initialize variables, and other low level stuff
 f_init3;    %initialize communications and plots
 %%
@@ -29,27 +30,27 @@ while(modes.run == 1)
     %%
     
     if(modes.voltControl ==1)
-        if(prerecordCount > n_prerecord)
-            fgCount = fgCount+1;
-            if(fgCount > 7)
+        if(counts.forPrerecord > dataSettings.n_prerecord)
+            counts.forFG1 = counts.forFG1+1;
+            if(counts.forFG1 > 7)
                 f_voltSend;     %send the new voltage
-                fgCount = 0;
+                counts.forFG1 = 0;
             end;
-        elseif (prerecordCount < n_prerecord)
-            prerecordCount = prerecordCount + 1;
-            fg1Volt = now_fg1_Voltage; %undo anything the control tried to do
-        elseif (prerecordCount == n_prerecord)
-            prerecordCount = prerecordCount + 1;
-            fg1Volt = now_fg1_Voltage; %undo anything the control tried to do
+        elseif (counts.forPrerecord < dataSettings.n_prerecord)
+            counts.forPrerecord = counts.forPrerecord + 1;
+            fg1.Volt = fg1.nowVoltage; %undo anything the control tried to do
+        elseif (counts.forPrerecord == dataSettings.n_prerecord)
+            counts.forPrerecord = counts.forPrerecord + 1;
+            fg1.Volt = fg1.nowVoltage; %undo anything the control tried to do
         end;
     end;
     %%
 
     if(modes.plotting == 1)
-        plotCount = plotCount + 1;
-        if (plotCount > 7)
+        counts.forPlot = counts.forPlot + 1;
+        if (counts.forPlot > 7)
             f_plotData;     %plot data for visuals
-            plotCount = 0;
+            counts.forPlot = 0;
         end;
     end;                %last because it is slowest
     
