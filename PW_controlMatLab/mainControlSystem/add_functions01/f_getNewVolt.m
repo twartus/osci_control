@@ -1,4 +1,6 @@
-        if(yAccel.Error >= yAccel.TriggerMain) %Above the minimum (+) trigger
+function [yAccel, fg1, tempfg1Volt, counts ] = f_getNewVolt( dataSettings, n, datas, yAccel, fg1, counts)
+
+if(yAccel.Error >= yAccel.TriggerMain) %Above the minimum (+) trigger
             %%
             if(yAccel.Error <= yAccel.CorrectionMax) %Below the maximum (+) correction
                 yAccel.Correction = yAccel.Error;       %allow full Error correction
@@ -15,7 +17,7 @@
         else
             %%
             yAccel.Correction = 0;
-        end;
+end;
             %%
         fg1.VCorrection = sign(yAccel.Correction) * (abs(yAccel.Correction))^(dataSettings.corrPower);
         fg1.VCorrection = fg1.VCorrection * dataSettings.yToVoltConst;    %convert yAccel.Correction to fg1VCorrection
@@ -45,5 +47,8 @@ if((datas.fit_MA(n) > dataSettings.jumpDownFitTHold) && (fg1.nowVoltage > dataSe
 %     tempfg1Volt = yTarget / noLid_K_AV;
     tempfg1Volt = dataSettings.jumpDownSafeVolt;
 end;
+
+return;
+end
  
  

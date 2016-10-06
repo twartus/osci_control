@@ -1,3 +1,5 @@
+function [datas] = f_dataCalc( datas, fg1, dataSettings, yAccel) 
+
 % %%
 % %Accel
 % %Shift
@@ -52,7 +54,7 @@ datas.fit_MA(datas.n) = datas.fit_MA(datas.n)/n_MA_fit;
 %%
 %K_AV
 
-dataSettings.n_MA_K_AV = 10; %number of points in moving average for K_AV
+% dataSettings.n_MA_K_AV = 10; %number of points in moving average for K_AV
 
 %K_AV
 %shift
@@ -90,4 +92,5 @@ for j = 1:dataSettings.n_MA_K_AV
 end;
 datas.K_AV_fit_MA(datas.n) = datas.K_AV_fit_MA(datas.n)/dataSettings.n_MA_K_AV;
 
-
+return;
+end

@@ -47,7 +47,7 @@ if(modes.voltControl == 1);
     fopen(functionGen1);
     
     %retrieve nowvoltage
-    f_voltRead;
+    fg1.nowVoltage = f_voltRead(functionGen1);
     fg1.Volt = fg1.nowVoltage;
 end;
 %%

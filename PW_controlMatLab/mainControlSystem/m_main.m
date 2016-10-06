@@ -1,6 +1,7 @@
 %%
 %To be Commented Later -Eric
-addpath('scripts01');
+addpath('add_scripts01');
+addpath('add_functions01');
 gui = control_GUI;
 uiwait(gui);
 
@@ -17,14 +18,18 @@ while(modes.run == 1)
   tic
     %%
     if(modes.dataReading == 1)
-        f_getAccel;     %take in acceleration reading
-        f_dataCalc;   %shift data, normalize, calculate derived values
+%         f_getAccel;     %take in acceleration reading
+        [datas.Accel ] = f_getAccel(datas, arduino1, LIS331);
+%         f_dataCalc;   %shift data, normalize, calculate derived values
+        [datas] = f_dataCalc( datas, fg1, dataSettings, yAccel);
     
 %         f_errorCalc;    %calculate Error and shift
 %has been moved into dataCalc
         
-        f_getNewVolt;   %calculate new Voltage to send
-        f_voltLimit;    %apply limits
+%         f_getNewVolt;   %calculate new Voltage to send
+        [yAccel, fg1, tempfg1Volt, counts ] = f_getNewVolt( dataSettings, n, datas, yAccel, fg1, counts);
+%         f_voltLimit;    %apply limits
+        [fg1.Volt] = f_voltLimit(tempfg1Volt, fg1);
     end;
     
     %%
