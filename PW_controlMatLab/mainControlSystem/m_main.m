@@ -1,6 +1,6 @@
 %%
 %To be Commented Later -Eric
-
+addpath('scripts01');
 gui = control_GUI;
 uiwait(gui);
 
@@ -11,11 +11,11 @@ f_init2;    %initialize variables, and other low level stuff
 f_init3;    %initialize communications and plots
 %%
 tic
-while(mode_run == 1)
+while(modes.run == 1)
   toc
   tic
     %%
-    if(mode_dataReading == 1)
+    if(modes.dataReading == 1)
         f_getAccel;     %take in acceleration reading
         f_dataCalc;   %shift data, normalize, calculate derived values
     
@@ -28,7 +28,7 @@ while(mode_run == 1)
     
     %%
     
-    if(mode_voltControl ==1)
+    if(modes.voltControl ==1)
         if(prerecordCount > n_prerecord)
             fgCount = fgCount+1;
             if(fgCount > 7)
@@ -45,7 +45,7 @@ while(mode_run == 1)
     end;
     %%
 
-    if(mode_plotting == 1)
+    if(modes.plotting == 1)
         plotCount = plotCount + 1;
         if (plotCount > 7)
             f_plotData;     %plot data for visuals
@@ -55,7 +55,7 @@ while(mode_run == 1)
     
 end;
 %%
-if(mode_record == 1);
+if(modes.record == 1);
     [recorded_seg] = f_record(800, arduino1, y1g, y0g);
 end;
 %%

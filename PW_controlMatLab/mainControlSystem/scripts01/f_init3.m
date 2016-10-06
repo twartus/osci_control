@@ -2,7 +2,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Premake a Plot %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(mode_plotting == 1)
+if(modes.plotting == 1)
     figure(1);
     
     subplot(2,1,1);                 %Plot Accelerations
@@ -41,7 +41,7 @@ arduino1.ReadAsyncMode = 'continuous';
 fwrite(arduino1,'w'); %tell to wake up
 
 %%
-if(mode_voltControl == 1);
+if(modes.voltControl == 1);
 % Initialize Function Generator on gpib
     functionGen1 = gpib('AGILENT', 7, 10);
     fopen(functionGen1);
@@ -55,7 +55,7 @@ end;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Set the Function generator %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(mode_initializeFG == 1)   %initialize if initMode >0
+if(modes.initializeFG == 1)   %initialize if initMode >0
     fprintf(functionGen1,sprintf('VOLT %d', fg1Volt));
     fprintf(functionGen1,sprintf('FREQ %d', fg1Freq));
 end;
