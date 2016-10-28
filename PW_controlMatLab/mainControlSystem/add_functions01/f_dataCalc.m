@@ -1,4 +1,4 @@
-function [datas] = f_dataCalc( datas, fg1, dataSettings, yAccel) 
+function [datas, yAccel] = f_dataCalc( datas, fg1, dataSettings, yAccel) 
 
 % %%
 % %Accel
@@ -28,7 +28,7 @@ datas.Error(datas.n) = datas.Accel(datas.n) - yAccel.Target;  %negative if below
 datas.Error_MA(1:(datas.n-1)) = datas.Error_MA(2:datas.n);  %shift
 %calculate
 datas.Error_MA(datas.n) = 0;
-for j = 1:n_Error_MA
+for j = 1:dataSettings.n_Error_MA
     datas.Error_MA(datas.n) = datas.Error_MA(datas.n) + datas.Error(datas.n + 1 - j);
 end;
 datas.Error_MA(datas.n) = datas.Error_MA(datas.n)/dataSettings.n_Error_MA;
@@ -46,10 +46,10 @@ datas.fit(datas.n) = abs(datas.fit(datas.n));
 %MA
 datas.fit_MA(1:(datas.n-1)) = datas.fit_MA(2:datas.n);  %shift
 datas.fit_MA(datas.n) = 0;
-for j = 1:n_MA_fit
+for j = 1:dataSettings.n_MA_fit
     datas.fit_MA(datas.n) = datas.fit_MA(datas.n) + datas.fit(datas.n + 1 - j);
 end;
-datas.fit_MA(datas.n) = datas.fit_MA(datas.n)/n_MA_fit;
+datas.fit_MA(datas.n) = datas.fit_MA(datas.n)/dataSettings.n_MA_fit;
 
 %%
 %K_AV

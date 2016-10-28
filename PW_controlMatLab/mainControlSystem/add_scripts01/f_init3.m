@@ -12,7 +12,15 @@ if(modes.plotting == 1)
     title('accel')
     xlabel('time(s)');
     ylabel('peak accel (g)');
-
+    hold('on');                 %lines
+    p1_lines(11) = plot([0 t(n)],[yAccel.Target, yAccel.Target], 'g');
+    p1_lines(12) = plot([0 t(n)],[yAccel.Target + yAccel.TriggerMin, yAccel.Target + yAccel.TriggerMin], 'c', 'LineStyle','--');
+    p1_lines(13) = plot([0 t(n)],[yAccel.Target - yAccel.TriggerMin, yAccel.Target - yAccel.TriggerMin], 'c', 'LineStyle','--');
+    legend('accel', 'target', 'upperTrigger', 'bottomTrigger');
+    hold('off');
+    
+    
+    
     subplot(2,1,2);                 %Plot Errors (something else later)
     plot2 = plot(t,datas.Error);  %Plot
     title('error');
@@ -20,6 +28,13 @@ if(modes.plotting == 1)
     grid('on')
     xlabel('time(s)');
     ylabel('something (btu)');
+    
+                                %limits, threshholds, etc
+    hold('on');                 %lines
+    p1_lines(21) = plot([0 t(n)],[yAccel.TriggerMin, yAccel.TriggerMin], 'c', 'LineStyle','--');
+    p1_lines(22) = plot([0 t(n)],[-1 * yAccel.TriggerMin, -1 * yAccel.TriggerMin], 'c', 'LineStyle','--');
+    legend('error', 'bottomTrigger', 'topTrigger');
+    hold('off');
     drawnow;
 end;
 
@@ -31,7 +46,7 @@ end;
 delete(instrfindall);   %clearing
 %  clear all; clc; close all;
 %Initialize Arduino on serial
-arduino1 = serial('COM5','BaudRate',115200);  
+arduino1 = serial('COM4','BaudRate',115200);  
 %set(s, ' Terminator', 'LF'); % Default terminator is \n
 set(arduino1,'BaudRate', 115200);
 set(arduino1,'DataBits', 8);

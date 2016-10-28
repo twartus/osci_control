@@ -1,13 +1,13 @@
 function [yAccel, fg1, tempfg1Volt, counts ] = f_getNewVolt( dataSettings, n, datas, yAccel, fg1, counts)
 
-if(yAccel.Error >= yAccel.TriggerMain) %Above the minimum (+) trigger
+if(yAccel.Error >= yAccel.TriggerMin) %Above the minimum (+) trigger
             %%
             if(yAccel.Error <= yAccel.CorrectionMax) %Below the maximum (+) correction
                 yAccel.Correction = yAccel.Error;       %allow full Error correction
             else %Past the maximum (+) correction
                 yAccel.Correction = yAccel.CorrectionMax;   %limit the Error to Max
             end;
-        elseif(yAccel.Error <= (0 - yAccel.TriggerMain)) %below the minimum (-) trigger
+        elseif(yAccel.Error <= (0 - yAccel.TriggerMin)) %below the minimum (-) trigger
             %%
             if(yAccel.Error >= (0 - yAccel.CorrectionMax)) %Above the maximimum (-) correction
                 yAccel.Correction = yAccel.Error;   %allow full Error correction

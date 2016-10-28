@@ -6,7 +6,7 @@ set(plot1,'YData',datas.Accel);            %hopefully faster than other ways
 set(plot2,'YData',datas.Error);   
 
 %note: Possible Requirement is to switch between figure(1) and figure(2)
-if(mode_plotting_extra == 1)
+if(modes.plotting_extra == 1)
     set(p2_1,'YData',datas.fg1Volt); 
     set(p2_2,'YData',datas.Error); 
     set(p2_3,'YData',datas.Error_MA); 

@@ -77,6 +77,8 @@ dataSettings.jumpDownVoltTHold = 0.650;
 dataSettings.jumpDownSafeVolt = 0.600;
 dataSettings.noLid_K_AV = 6.7;
 
+dataSettings.kavUpperLimJump = 8;
+dataSettings.kavLowerLimJump = 3.8;
 
 return;
 end
